@@ -1,8 +1,11 @@
-import React from 'react'
-import { View, StyleSheet, StatusBar, Image, Dimensions } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, StatusBar, Image, Dimensions, Text, ScrollView } from 'react-native'
+import { format } from 'date-fns'
 
 import colors from '../constants/colors'
 import ConversionInput from '../components/ConversionInput'
+import { Button } from '../components/Button'
+import { KeyboardSpacer } from '../components/KeyboardSpacer'
 const screen = Dimensions.get('window')
 
 const styles = StyleSheet.create({
@@ -10,6 +13,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.blue,
         flex: 1,
         justifyContent: 'center'
+    },
+    content: {
+        paddingTop: screen.height * 0.2
     },
     logoContainer: {
         alignItems: 'center',
@@ -23,13 +29,35 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: screen.width * 0.25,
         height: screen.width * 0.25
-    }
+    },
+    textHeader: {
+        color: colors.white,
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginVertical: 20,
+        textAlign: 'center'
+    },
+    text: {
+        color: colors.white,
+        fontSize: 14,
+        textAlign: 'center'
+    },
 })
 
 export default () => {
+    const baseCurrency = 'USD'
+    const quoteCurrency = 'GBP'
+    const conversionRate = 0.76
+    const date = '2022-03-27'
+
+    const [scrollEnabled, setScrollEnabled] = useState(false);
+
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content' backgroundColor={colors.blue} />
+            {/* <ScrollView scrollEnabled={scrollEnabled}>
+                <View style={styles.content}> */}
             <View style={styles.logoContainer}>
                 <Image
                     source={require('../assets/images/background.png')}
@@ -42,6 +70,8 @@ export default () => {
                     resizeMode='contain'
                 />
             </View>
+
+            <Text style={styles.textHeader}>Currency Converter</Text>
 
             <ConversionInput
                 text="USD"
@@ -57,6 +87,17 @@ export default () => {
                 onButtonPress={() => alert("todo!")}
                 editable={false}
             />
+
+            <Text style={styles.text}>{`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(new Date(date), 'MMM do, yyyy')}`}</Text>
+
+            <Button
+                text='Reverse Currencies'
+                onPress={() => alert('todo')}
+            />
+            {/* <KeyboardSpacer onToggle={(visible) => setScrollEnabled(visible)} /> */}
+            {/* </View>
+            </ScrollView> */}
+
         </View>
     )
 }
