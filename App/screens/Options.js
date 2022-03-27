@@ -23,6 +23,7 @@ const openUrl = (url) => {
 export default () => {
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
             <RowItem
                 rightIcon={<Entypo name='chevron-right' size={20} color={colors.blue} />}
                 text="Themes"
