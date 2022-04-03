@@ -52,13 +52,17 @@ const styles = StyleSheet.create({
 })
 
 export default ({ navigation }) => {
-    const baseCurrency = 'USD'
-    const quoteCurrency = 'GBP'
+    const [scrollEnabled, setScrollEnabled] = useState(false)
+    const [baseCurrency, setBaseCurrency] = useState('USD')
+    const [quoteCurrency, setQuoteCurrency] = useState('GBP')
+    const [value, setValue] = useState("100")
     const conversionRate = 0.76
     const date = '2022-03-27'
 
-    const [scrollEnabled, setScrollEnabled] = useState(false);
-
+    const swapCurrencies = () => {
+        setBaseCurrency(quoteCurrency)
+        setQuoteCurrency(baseCurrency)
+    }
 
     return (
         <View style={styles.container}>
@@ -86,17 +90,29 @@ export default ({ navigation }) => {
                     <Text style={styles.textHeader}>Currency Converter</Text>
 
                     <ConversionInput
-                        text="USD"
-                        value="123"
-                        onButtonPress={() => navigation.push('CurrencyList', { title: "Base Currency", activeCurrency: baseCurrency })}
-                        onChangeText={text => console.log("text", text)}
+                        text={baseCurrency}
+                        value={value}
+                        onButtonPress={() => navigation.push(
+                            'CurrencyList',
+                            {
+                                title: "Base Currency",
+                                activeCurrency: baseCurrency,
+                                onChange: (currency) => setBaseCurrency(currency)
+                            })}
+                        onChangeText={text => setValue(text)}
                         keyboardType="numeric"
                     />
 
                     <ConversionInput
-                        text="GBP"
-                        value="123"
-                        onButtonPress={() => navigation.push('CurrencyList', { title: "Quote Currency", activeCurrency: quoteCurrency })}
+                        text={quoteCurrency}
+                        value={value && `${parseFloat(value * conversionRate).toFixed(2)}`}
+                        onButtonPress={() => navigation.push(
+                            'CurrencyList',
+                            {
+                                title: "Quote Currency",
+                                activeCurrency: quoteCurrency,
+                                onChange: (currency) => setQuoteCurrency(currency)
+                            })}
                         editable={false}
                     />
 
@@ -104,7 +120,7 @@ export default ({ navigation }) => {
 
                     <Button
                         text='Reverse Currencies'
-                        onPress={() => alert('todo')}
+                        onPress={() => swapCurrencies()}
                     />
                     {/* <KeyboardSpacer onToggle={(visible) => setScrollEnabled(visible)} /> */}
                 </View>
