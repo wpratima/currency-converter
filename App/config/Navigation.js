@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { TouchableOpacity } from "react-native"
 import { Entypo } from '@expo/vector-icons'
+import { ConversionContextProvider } from "../utils/ConversionContext"
 
 import Home from "../screens/Home"
 import Options from "../screens/Options"
@@ -47,7 +48,9 @@ export default () => {
 
     return (
         <NavigationContainer>
-            <ModalStackScreen />
+            <ConversionContextProvider>
+                <ModalStackScreen />
+            </ConversionContextProvider>
         </NavigationContainer>
     );
 }
