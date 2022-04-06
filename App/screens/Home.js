@@ -61,8 +61,6 @@ export default ({ navigation }) => {
         baseCurrency,
         quoteCurrency,
         swapCurrencies,
-        setBaseCurrency,
-        setQuoteCurrency
     } = useContext(ConversionContext)
 
 
@@ -98,8 +96,7 @@ export default ({ navigation }) => {
                             'CurrencyList',
                             {
                                 title: "Base Currency",
-                                activeCurrency: baseCurrency,
-                                onChange: (currency) => setBaseCurrency(currency)
+                                isBaseCurrency: true
                             })}
                         onChangeText={text => setValue(text)}
                         keyboardType="numeric"
@@ -112,8 +109,7 @@ export default ({ navigation }) => {
                             'CurrencyList',
                             {
                                 title: "Quote Currency",
-                                activeCurrency: quoteCurrency,
-                                onChange: (currency) => setQuoteCurrency(currency)
+                                isBaseCurrency: false
                             })}
                         editable={false}
                     />
