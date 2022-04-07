@@ -36,7 +36,7 @@ export default () => {
                 rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
                 text="React Native Basics"
                 onPress={() => openUrl(
-                    'https://learn.reactnativeschool.com/p/react-native-basics-build-a-currency-converter'
+                    'https://learn'
                 )}
             />
 
